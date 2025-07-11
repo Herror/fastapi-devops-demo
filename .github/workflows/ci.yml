@@ -29,9 +29,9 @@ jobs:
         pip install ruff
         ruff check app/ --output-format=github
 
-    - name: Run tests
+    - name: Run tests with coverage
       run: |
-       PYTHONPATH=. pytest
+       PYTHONPATH=. pytest --cov=app --cov-fail-under=80
 
     - name: Build Docker image
       run: |
