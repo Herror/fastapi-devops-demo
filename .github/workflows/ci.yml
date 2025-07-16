@@ -33,6 +33,16 @@ jobs:
       run: |
        PYTHONPATH=. pytest --cov=app --cov-fail-under=80
 
-    - name: Build Docker image
+    - name: Log in to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
       run: |
-        docker build -t fastapi-devops-demo .
+        IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/fastapi-devops-demo
+        TAG=latest
+
+        docker build -t $IMAGE_NAME:$TAG .
+        docker push $IMAGE_NAME:$TAG
