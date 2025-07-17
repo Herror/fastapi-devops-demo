@@ -23,7 +23,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest
+        PYTHONPATH=. pytest
 
     - name: Log in to DockerHub
       uses: docker/login-action@v3
